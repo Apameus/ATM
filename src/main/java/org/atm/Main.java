@@ -1,6 +1,9 @@
 package org.atm;
 import org.atm.module.CreditCard;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -22,6 +25,12 @@ public class Main
 {
     public static void main(String[] args)
     {
+
+
+        //
+        List<CreditCard> creditCardList = new ArrayList<>();
+        //
+
         CreditCard creditCard = CreditCard.createNewCreditCard();
         int atm_balance = 1_000_000;
 
@@ -33,8 +42,15 @@ public class Main
 
         while(choice != 4) {
             choice = getChoice(sc);
+
+            System.out.println();
+
             switch (choice) {
                 case 1 -> {
+                    if (creditCard_balance <= 0){
+                        System.err.println("You have no money");
+                        break;
+                    }
                     System.out.print("Enter money to be withdrawn: ");
 
                     withdraw = sc.nextInt();
@@ -43,6 +59,12 @@ public class Main
                         System.err.println("Invalid number");
                     }
 
+                    if (withdraw > atm_balance){
+                        System.err.println("Atm doesn't have that amount of money!");
+                    }
+                    else {
+                        atm_balance -= withdraw;
+                    }
                     if (creditCard_balance >= withdraw) {
                         creditCard_balance = creditCard_balance - withdraw;
                         System.out.println("Please collect your money");
@@ -65,10 +87,20 @@ public class Main
                     creditCard_balance = creditCard_balance + deposit;
                     System.out.println("Your Money has been successfully deposited");
                     System.out.println("");
+
+                    //add the deposit amount to the atm balance
+                    atm_balance += deposit;
                 }
                 case 3 -> {
                     System.out.println("Balance : " + creditCard_balance);
                     System.out.println("");
+                }
+                case 4 ->{
+
+                }
+                default -> {
+                    System.err.println("\nInvalid choice\n");
+                    choice = getChoice(sc);
                 }
             }
         }
@@ -83,7 +115,14 @@ public class Main
         System.out.print("Choose the operation you want to perform: ");
 
         //get choice from user
-        return sc.nextInt();
+
+        try {
+            return sc.nextInt();
+        }
+        catch (InputMismatchException e ){
+            System.err.println("Please enter a valid number: ");
+            return new Scanner(System.in).nextInt();
+        }
     }
 
 
