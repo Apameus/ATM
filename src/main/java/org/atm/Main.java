@@ -23,9 +23,28 @@ OptionList
 
 public class Main
 {
+
+//    static void getBalance() throws InvalidBalanceException {
+//        throw new InvalidBalanceException("Bad balance");
+//    }
+//
+//    static class InvalidBalanceException extends Exception {
+//        public InvalidBalanceException(String message) {
+//            super(message);
+//        }
+//    }
+
     public static void main(String[] args)
     {
 
+//        try {
+//            getBalance();
+//        } catch (InvalidBalanceException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//
+//        if (true) return;
 
         //
         List<CreditCard> creditCardList = new ArrayList<>();
@@ -124,6 +143,5 @@ public class Main
             return new Scanner(System.in).nextInt();
         }
     }
-
 
 }

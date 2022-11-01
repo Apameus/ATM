@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
         @DisplayName("SerializeCreditCard")
         void serializeCreditCard(){
             CreditCard creditCard = new CreditCard("1234567890123456", "2020",
-                                                    1000,false);
-            String expectedLine = "%s\nPIN: %s\n%s$\n%s\n".formatted(creditCard.number(), creditCard.pin(),
-                                                    creditCard.balance(), creditCard.active());
+                                                    1000,false,"Ioannis Tzortzinis");
+            String expectedLine = "%s\nPIN: %s\n%s$\n%s\n%s\n".formatted(creditCard.number(), creditCard.pin(),
+                                                    creditCard.balance(), creditCard.active(), creditCard.owner());
 
             assertEquals(expectedLine,saveCreditCards(List.of(creditCard)).get(0));
 

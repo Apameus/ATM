@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public record CreditCard(String number, String pin,
-                         double balance, Boolean active) {
+                         double balance, Boolean active, String owner) {
     public CreditCard{
         Objects.requireNonNull(number, "Number can't be null");
         if (pin.length() != 4){
@@ -26,7 +26,9 @@ public record CreditCard(String number, String pin,
         Double balance = Double.parseDouble(sc.next());
         System.out.println("True / False if card is active: ");
         Boolean active = Boolean.parseBoolean(sc.next().toUpperCase(Locale.ROOT));
-        return new CreditCard(number,pin,balance,active);
+        System.out.println("Owner: ");
+        String owner = sc.next();
+        return new CreditCard(number,pin,balance,active,owner);
     }
 
 
