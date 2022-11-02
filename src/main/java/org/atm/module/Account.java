@@ -2,13 +2,13 @@ package org.atm.module;
 
 import java.util.List;
 
-public class Account {
+public record Account(String owner, List<CreditCard> creditCards, Double balance, String username, String password) {
 
-    String owner;
-    List<CreditCard> creditCards;
-    Double balance;
-    String username;
-    String password;
+    ;
+    ;
+    ;
+
+    ;
 
     public Account(String owner, List<CreditCard> creditCards,Double balance ,String username, String password){
 
@@ -20,7 +20,6 @@ public class Account {
 
         if (!owner.contains(" ")){
 //            owner =
-//            throw new FullNameDoesntHaveWhiteSpaceException("Owner full name needs space!");
         }
     }
 }

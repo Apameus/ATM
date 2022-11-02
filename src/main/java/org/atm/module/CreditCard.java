@@ -1,11 +1,16 @@
 package org.atm.module;
 
+import org.atm.services.Console;
+
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
 public record CreditCard(String number, String pin,
-                         double balance, Boolean active, String owner) {
+                         double balance, Boolean active, String owner) implements Console {
+
+    static Scanner sc = new Scanner(System.in);
+
     public CreditCard{
         Objects.requireNonNull(number, "Number can't be null");
         if (pin.length() != 4){
@@ -16,21 +21,20 @@ public record CreditCard(String number, String pin,
         }
     }
 
-    public static CreditCard createNewCreditCard(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter card number: ");
-        String number = sc.next();
-        System.out.println("Enter card pin: ");
-        String pin = sc.next();
-        System.out.println("Enter card balance: ");
-        Double balance = Double.parseDouble(sc.next());
-        System.out.println("True / False if card is active: ");
-        Boolean active = Boolean.parseBoolean(sc.next().toUpperCase(Locale.ROOT));
-        System.out.println("Owner: ");
-        String owner = sc.next();
+    public CreditCard createNewCreditCard(){
+
+        String number = getInput("Enter card number: ");
+        String pin = getInput("Enter card pin: ");
+        Double balance = Double.parseDouble(getInput("Enter card balance: "));
+        Boolean active = Boolean.parseBoolean(getInput("Enter card ").toLowerCase(Locale.ROOT));
+        String owner = getInput("Owner: ");
         return new CreditCard(number,pin,balance,active,owner);
     }
 
 
-
+    @Override
+    public String getInput(String message) {
+        System.out.println(message);
+        return sc.next();
+    }
 }

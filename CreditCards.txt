@@ -1,18 +1,14 @@
-1234_5678_9012_3456
-PIN: 2020
-1000$
-FALSE
-Ioannis Tzortzinis
+CreditCard_Number: 1234_5678_9012_3456
+Pin: 2020
+Balance: 1000
+Active: false
+Owner: Ioannis Tzortzinis
 
-9027_4201_3654_1871
-PIN: 1423
-30000$
-TRUE
-Ilias Tzortzinis
+CreditCard_Number: 9027_4201_3654_1871
+Pin: 1423
+Balance: 30000
+Active: true
+Owner: Ilias Tzortzinis
 
 
 
-//TODO
-CreditCard number only number
-pin only numbers
-true false
