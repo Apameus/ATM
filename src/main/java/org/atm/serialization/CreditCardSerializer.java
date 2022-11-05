@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CreditCardSerializer {
 
-    static Path path = Path.of("C:\\Users\\Ιωάννης Τζωρτζίνης\\Documents\\Java\\ATM\\CreditCards.txt");
+    static Path path = Path.of("CreditCards.txt");
 
 
     public List<String> saveCreditCards(List<CreditCard> creditCardList){
@@ -31,19 +31,21 @@ public class CreditCardSerializer {
         List<String> lines = getAllLines();
         lines.removeAll(Collections.singleton(""));
         List<CreditCard> creditCardList = new ArrayList<>();
-        var linesPassed = 0;
-        while (lines.get(linesPassed).contains("CreditCard_Number:")){
+            for (int linesPassed = 0; lines.size() > linesPassed; linesPassed += 5){
             //String[] attributes = line.split("\n");
             var number = getNumber(lines.get(linesPassed));
             var pin = getPin(lines.get(linesPassed + 1));
             var balance = getBalance(lines.get(linesPassed + 2));
             var active = getActive(lines.get(linesPassed + 3));
             var owner = getOwner(lines.get(linesPassed + 4));
-            linesPassed += 5;
             CreditCard creditCard = new CreditCard(number, pin, balance, active, owner);
             creditCardList.add(creditCard);
         }
         return creditCardList;
+    }
+
+    protected void setPah(String newPath){
+        path = Path.of(newPath);
     }
 
     private String getOwner(String line) {
