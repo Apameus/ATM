@@ -2,9 +2,7 @@ package org.atm.module;
 
 import org.atm.services.Console;
 
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public record CreditCard(String number, String pin,
                          double balance, Boolean active, String owner) implements Console {
@@ -25,7 +23,7 @@ public record CreditCard(String number, String pin,
 
         String number = getInput("Enter card number: ");
         String pin = getInput("Enter card pin: ");
-        Double balance = Double.parseDouble(getInput("Enter card balance: "));
+        double balance = Double.parseDouble(getInput("Enter card balance: "));
         Boolean active = Boolean.parseBoolean(getInput("Enter card ").toLowerCase(Locale.ROOT));
         String owner = getInput("Owner: ");
         return new CreditCard(number,pin,balance,active,owner);

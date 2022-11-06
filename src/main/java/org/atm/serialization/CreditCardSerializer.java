@@ -9,19 +9,24 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class CreditCardSerializer {
 
     static Path path = Path.of("CreditCards.txt");
+    public static Map<String, CreditCard> mapNumberToCreditCard;
 
 
     public List<String> saveCreditCards(List<CreditCard> creditCardList){
         List<String> lines = new ArrayList<>();
         for (var creditCard : creditCardList){
-            String line =  creditCard.number() + "\n" + "PIN: " + creditCard.pin() + "\n"
-                        + creditCard.balance() + "$" + "\n" + creditCard.active() + "\n"
-                        + creditCard.owner() + "\n";
+            String line =  "CreditCard_Number: " + creditCard.number() + "\n" +
+                    "Pin: " + creditCard.pin() + "\n" +
+                    "Balance: " + creditCard.balance() + "\n" +
+                    "Active: " + creditCard.active() + "\n" +
+                    "Owner: "  + creditCard.owner() + "\n";
             lines.add(line);
+
         }
         return lines;
     }
@@ -31,8 +36,7 @@ public class CreditCardSerializer {
         List<String> lines = getAllLines();
         lines.removeAll(Collections.singleton(""));
         List<CreditCard> creditCardList = new ArrayList<>();
-            for (int linesPassed = 0; lines.size() > linesPassed; linesPassed += 5){
-            //String[] attributes = line.split("\n");
+        for (int linesPassed = 0; lines.size() > linesPassed; linesPassed += 5){
             var number = getNumber(lines.get(linesPassed));
             var pin = getPin(lines.get(linesPassed + 1));
             var balance = getBalance(lines.get(linesPassed + 2));
@@ -40,9 +44,18 @@ public class CreditCardSerializer {
             var owner = getOwner(lines.get(linesPassed + 4));
             CreditCard creditCard = new CreditCard(number, pin, balance, active, owner);
             creditCardList.add(creditCard);
+            mapNumberToCreditCard.put(creditCard.number(), creditCard);
         }
         return creditCardList;
     }
+
+//    public List<CreditCard> findCreditCardsByNumber(String line){
+//        List<CreditCard> creditCards = new ArrayList<>();
+//        var numbers = line.split(", ");
+//        for(var number : numbers){
+//            creditCards.add(mapNumberToCreditCard.get(number));
+//        } return creditCards;
+//    }
 
     protected void setPah(String newPath){
         path = Path.of(newPath);

@@ -19,7 +19,13 @@ class CreditCardSerializerTest extends CreditCardSerializer{
         void serializeCreditCard(){
             CreditCard creditCard = new CreditCard("1234567890123456", "2020",
                                                     1000,false,"Ioannis Tzortzinis");
-            String expectedLine = "%s\nPIN: %s\n%s$\n%s\n%s\n".formatted(creditCard.number(), creditCard.pin(),
+            String expectedLine = ("""
+                    CreditCard_Number: %s
+                    Pin: %s
+                    Balance: %s
+                    Active: %s
+                    Owner: %s
+                    """).formatted(creditCard.number(), creditCard.pin(),
                                                     creditCard.balance(), creditCard.active(), creditCard.owner());
 
             assertEquals(expectedLine,saveCreditCards(List.of(creditCard)).get(0));
