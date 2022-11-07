@@ -16,7 +16,7 @@ public class AccountSerializer {
 
     static Path path = Path.of("Accounts.txt");
 
-    public List<String> saveAccounts(List<Account> accountList){
+    public void saveAccounts(List<Account> accountList){
         List<String> lines = new ArrayList<>();
         for (var account : accountList){
             String line = "Owner: " + account.owner() + "\n" +
@@ -28,7 +28,7 @@ public class AccountSerializer {
                             "Password: " + account.password();
             lines.add(line);
         }
-        return lines;
+        saveToFile(lines);
     }
 
     public List<Account> parseAccounts(){
@@ -95,5 +95,14 @@ public class AccountSerializer {
         var lastName = attributes[2];
         var fullName = firstName + " " + lastName;
         return fullName;
+    }
+
+    protected void saveToFile(List<String> lines){
+        try {
+            Files.write(path,lines);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
