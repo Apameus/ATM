@@ -14,6 +14,8 @@ import java.util.Map;
 public class CreditCardSerializer {
 
     static Path path = Path.of("CreditCards.txt");
+
+    //Map with creditCardNumber (key) & creditCard (value)
     public static Map<String, CreditCard> mapNumberToCreditCard;
 
 
@@ -49,6 +51,8 @@ public class CreditCardSerializer {
         return creditCardList;
     }
 
+
+            //find creditCard by Number method
 //    public List<CreditCard> findCreditCardsByNumber(String line){
 //        List<CreditCard> creditCards = new ArrayList<>();
 //        var numbers = line.split(", ");
@@ -56,6 +60,7 @@ public class CreditCardSerializer {
 //            creditCards.add(mapNumberToCreditCard.get(number));
 //        } return creditCards;
 //    }
+
 
     protected void setPah(String newPath){
         path = Path.of(newPath);

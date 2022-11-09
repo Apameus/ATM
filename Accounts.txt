@@ -1,5 +1,6 @@
 Owner: Ioannis Tzortzinis
 CC: 1234_5678_9012_3456, 4342_5801_7766_3211
-Balance: 10$
+Balance: 10
 Username: Apameus
 Password: Apameus123
+

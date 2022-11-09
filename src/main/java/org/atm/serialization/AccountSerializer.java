@@ -9,27 +9,59 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
+//Map with creditCardNumber (key) & creditCard (value)
 import static org.atm.serialization.CreditCardSerializer.mapNumberToCreditCard;
 
 public class AccountSerializer {
 
     static Path path = Path.of("Accounts.txt");
 
+                // Serializer
+//    public void saveAccounts(List<Account> accountList){
+//        List<String> lines = new ArrayList<>();
+//        for (var account : accountList){
+//            String line = "Owner: " + account.owner() + "\n" +
+//                            "CC: " + getCreditCardNumbers(account.creditCardsNumbers()) + "\n" +
+//                            "Balance: " + account.balance() + "\n" +
+//                            "Username: " + account.username() + "\n" +
+//                            "Password: " + account.password() + "\n" + "\n" ;
+//
+//            lines.add(line);
+//        }
+//        saveToFile(lines);
+//    }
+
     public void saveAccounts(List<Account> accountList){
+        //final ArrayList with String's
         List<String> lines = new ArrayList<>();
+        //secondary ArrayLst with stringBuilder's
+        List<StringBuilder> stringBuilders = new ArrayList<>();
+        var x = 0;
         for (var account : accountList){
-            String line = "Owner: " + account.owner() + "\n" +
-                                        // ERROR HERE
-                            "CC: " + account.creditCardsNumbers() + "\n" +
-                                        //
-                            "Balance: " + account.balance() + "\n" +
-                            "Username: " + account.username() + "\n" +
-                            "Password: " + account.password();
-            lines.add(line);
+            StringBuilder line = new StringBuilder();
+            line.append("Owner: ").append(account.owner()).append("\n")
+                    .append("CC: ").append(getCreditCardNumbers(account.creditCardsNumbers())).append("\n")
+                    .append("Balance: ").append(account.balance()).append("\n")
+                    .append("Username: ").append(account.username()).append("\n")
+                    .append("Password: ").append(account.password()).append("\n").append("\n");
+            stringBuilders.add(line);
+              //error here!
+            x ++;
         }
+        //  Deleting the last two "\n" from the last strBuilder
+        stringBuilders.get(x - 1).deleteCharAt(stringBuilders.get(x - 1).lastIndexOf("\n"));
+        stringBuilders.get(x - 1).deleteCharAt(stringBuilders.get(x - 1).lastIndexOf("\n"));
+        //  Converting List<StringBuilder> to List<Sting>
+        for (var e : stringBuilders){
+            lines.add(e.toString());
+        }
+        // Return what's needed
         saveToFile(lines);
     }
+
+    //Parser
 
     public List<Account> parseAccounts(){
         List<String> lines = getAllLines();
@@ -47,23 +79,39 @@ public class AccountSerializer {
         return accountList;
     }
 
-    private List<String> getCreditCardNumbers(String line) {
 
-        line.replaceAll(",", "");
-        var attributes = line.split(" ");
-        List<String> creditCardList = new ArrayList<>();
-        for (int i = 1; i <= attributes.length ; i++) {
-            creditCardList.add(attributes[i]);
-        }
-        return creditCardList;
-    }
-
+    //find creditCard By Number method !
     public List<CreditCard> findCreditCardsByNumber(String line){
         List<CreditCard> creditCards = new ArrayList<>();
         var numbers = line.split(", ");
         for(var number : numbers){
             creditCards.add(mapNumberToCreditCard.get(number));
         } return creditCards;
+    }
+
+
+    //              Get method
+    //                  For serializer
+    protected String getCreditCardNumbers(List<String> creditCardsNumbers) {
+        StringBuilder finalLine = new StringBuilder();
+        for (var number : creditCardsNumbers){
+            finalLine.append(number).append(", ");
+        }
+        finalLine.deleteCharAt(finalLine.lastIndexOf(", "));
+        return finalLine.toString();
+    }
+
+
+    //              Get methods
+    //                  For parser
+    private List<String> getCreditCardNumbers(String line) {
+
+        var attributes = line.replaceAll(",", "").split(" ");
+        List<String> creditCardList = new ArrayList<>();
+        for (int i = 1; i < attributes.length ; i++) {
+            creditCardList.add(attributes[i]);
+        }
+        return creditCardList;
     }
 
     private List<String> getAllLines() {
