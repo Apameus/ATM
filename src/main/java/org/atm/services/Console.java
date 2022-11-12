@@ -1,7 +1,11 @@
 package org.atm.services;
 
-public interface Console {
+import java.util.List;
 
-    String getInput(String message);
+public interface Console <T>{
+
+    T getInput(String message);
+
+    String optionMenu(List<String> options);
 
 }

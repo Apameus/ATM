@@ -6,17 +6,14 @@ import org.atm.module.CreditCard;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CreditCardSerializer {
 
     static Path path = Path.of("CreditCards.txt");
 
     //Map with creditCardNumber (key) & creditCard (value)
-    public static Map<String, CreditCard> mapNumberToCreditCard;
+    public static Map<String, CreditCard> mapNumberToCreditCard = new HashMap<>();
 
 
     public List<String> saveCreditCards(List<CreditCard> creditCardList){
@@ -53,13 +50,21 @@ public class CreditCardSerializer {
 
 
             //find creditCard by Number method
-//    public List<CreditCard> findCreditCardsByNumber(String line){
-//        List<CreditCard> creditCards = new ArrayList<>();
-//        var numbers = line.split(", ");
-//        for(var number : numbers){
-//            creditCards.add(mapNumberToCreditCard.get(number));
-//        } return creditCards;
-//    }
+    public static List<CreditCard> findCreditCardsByNumber(String line){
+        List<CreditCard> creditCards = new ArrayList<>();
+        var numbers = line.split(", ");
+        for(var number : numbers){
+            creditCards.add(mapNumberToCreditCard.get(number));
+        } return creditCards;
+    }
+
+    public static List<CreditCard> findCreditCardsByNumber(List<String> numbers) {
+        List<CreditCard> creditCards = new ArrayList<>();
+        for (var number : numbers) {
+            creditCards.add(mapNumberToCreditCard.get(number));
+        }
+        return creditCards;
+    }
 
 
     protected void setPah(String newPath){

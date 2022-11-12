@@ -5,9 +5,8 @@ import org.atm.services.Console;
 import java.util.*;
 
 public record CreditCard(String number, String pin,
-                         double balance, Boolean active, String owner) implements Console {
+                         double balance, Boolean active, String owner) {
 
-    static Scanner sc = new Scanner(System.in);
 
     public CreditCard{
         Objects.requireNonNull(number, "Number can't be null");
@@ -30,9 +29,9 @@ public record CreditCard(String number, String pin,
     }
 
 
-    @Override
-    public String getInput(String message) {
-        System.out.println(message);
-        return sc.next();
+    public String getInput(String msg) {
+        System.out.println(msg);
+        return String.valueOf(new Scanner(System.in));
+
     }
 }
