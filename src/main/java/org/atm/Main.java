@@ -77,14 +77,13 @@ public class Main  {
                     accountRepository.viewBalance(account);
                 }
                 case "change_info" -> {
-                    accountRepository.changeUsername(account);
-                    accountRepository.changePassword(account);
+                    account = accountRepository.changeUsername(account);
+                    account = accountRepository.changePassword(account);
                 }
                 default -> {
                 }
-                option = getInput("View_info, View_balance, Change_info, Exit: ");
-
             }
+            option = getInput("View_info, View_balance, Change_info, Exit: ");
         }
     }
 
