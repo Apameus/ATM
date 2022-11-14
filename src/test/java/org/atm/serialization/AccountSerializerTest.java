@@ -42,7 +42,7 @@ class AccountSerializerTest extends AccountSerializer{
     @DisplayName("SerializeTwoAccounts")
     void serializeTwoAccounts(){
         Account account1 = new Account("Ioannis Tzortzinis",
-                List.of("1234_5678_9012_3456, 4342_5801_7766_3211"),
+                List.of("1234_5678_9012_3456, 9027_4201_3654_1871"),
                 10.0,
                 "Apameus",
                 "Apameus123");

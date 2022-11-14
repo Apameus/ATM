@@ -1,8 +1,10 @@
 package org.atm.repositories;
 
 import org.atm.module.Account;
+import org.atm.module.CreditCard;
 import org.atm.serialization.CreditCardSerializer;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class AccountRepository {
@@ -28,8 +30,24 @@ public class AccountRepository {
                 Balance: '%f'
                 Username: '%s'
                 Password: '%s'
-                """.formatted(account.owner(), CreditCardSerializer.findCreditCardsByNumber(account.creditCardsNumbers()),
+                """.formatted(account.owner(), showCreditCards(account),
                             account.balance(), account.username(), account.password()));
+    }
+
+    private String showCreditCards(Account account) {
+        List<CreditCard> creditCards = CreditCardSerializer.findCreditCardsByNumber(account.creditCardsNumbers());
+        StringBuilder line = new StringBuilder();
+        for (var creditCard : creditCards){
+            line.append(creditCard.number())                     .append(" ")
+                    .append(creditCard.pin())                      .append(" ")
+                    .append(creditCard.balance())                     .append(" ")
+                    .append(creditCard.active())                     .append(" ")
+                    .append(creditCard.owner());
+            line.append(", ");
+        }
+        line.deleteCharAt(line.lastIndexOf(" "));
+        line.deleteCharAt(line.lastIndexOf(","));
+        return line.toString();
     }
 
     public void viewBalance(Account account){

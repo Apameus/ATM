@@ -18,14 +18,39 @@ public class CreditCardRepository {
 
     public CreditCard deposit(CreditCard creditCard){
         Double depositAmount = getInput("Deposit amount: ");
+        //check if depositAmount <= 0
+        while (depositAmount <= 0){
+            System.err.println("The amount must be greater than 0");
+            System.out.println();
+            depositAmount = getInput("Deposit amount: ");
+        }
         Double newBalance = depositAmount + creditCard.balance();
         CreditCard returnedCreditCard = new CreditCard(creditCard.number(), creditCard.pin(), newBalance, creditCard.active(), creditCard. owner());
         return returnedCreditCard;
     }
 
     public CreditCard withdraw(CreditCard creditCard){
+        //check if balance <= 0
+        if (creditCard.balance() <= 0){
+            System.err.println("You have no money to withdraw");
+            System.out.println();
+            return creditCard;
+        }
+        //get the input
         Double withdrawAmount = getInput("Withdraw amount: ");
-        Double newBalance = withdrawAmount - creditCard.balance();
+        //check if balance - withdrawn < 0
+        if (creditCard.balance() - withdrawAmount < 0){
+            System.err.println("You don't have enough money !");
+            System.out.println();
+            return creditCard;
+        }
+        //check withdraw > 0
+        while (withdrawAmount <= 0){
+            System.err.println("The amount must be greater than 0");
+            System.out.println();
+            withdrawAmount = getInput("Withdrawn amount: ");
+        }
+        Double newBalance = creditCard.balance() - withdrawAmount;
         CreditCard returnedCreditCard = new CreditCard(creditCard.number(), creditCard.pin(), newBalance, creditCard.active(), creditCard. owner());
         return returnedCreditCard;
     }
@@ -36,7 +61,7 @@ public class CreditCardRepository {
 
     private Double getInput(String msg) {
         System.out.println(msg);
-        return Double.parseDouble(String.valueOf(new Scanner(System.in)));
+        return new Scanner(System.in).nextDouble();
 
     }
 

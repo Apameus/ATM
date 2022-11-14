@@ -29,37 +29,58 @@ public class Main  {
 
     public static void main(String[] args) {
 
-
+        //get the input
         String option = getInput("CreditCard, Account, Exit: ");
-        while (!option.equals("exit")){
+        //check the answer
+        while (!option.equalsIgnoreCase("creditCard") & !option.equalsIgnoreCase("Account") & !option.equalsIgnoreCase("Exit")){
+            System.err.println("Your answer is not accurate!");
+            System.out.println();
+            option = getInput("CreditCard, Account, Exit: ");
+        }
+        //continue
+        while (!option.equalsIgnoreCase("exit")){
             login(option, creditCardList, accountList);
             option = getInput("CreditCard, Account, Exit: ");
 
         }
 
     }
-
+    //login code
     private static void login(String option, List<CreditCard> creditCardList, List<Account> accountList) {
         if (option.equalsIgnoreCase("creditCard")){
             var number = getInput("Number: ");
             var pin = getInput("Pin: ");
+            //for every card in the list
             for (var creditCard : creditCardList){
+                //login authentication
                 if (creditCard.number().equals(number) & creditCard.pin().equals(pin)){
-                    System.out.println("successful login");
-                    creditCardCode(creditCard);
+                    System.out.println("Successful login!");
+                    System.out.println();
+                    creditCardCode(creditCard);}
+                //Wrong answer
+                else {
+                    System.err.println("Wrong number or pin!");
+                    System.out.println();
                 }
             }
         }
         else if (option.equalsIgnoreCase("account")){
-            if (option.equalsIgnoreCase("account")){
                 var username = getInput("Username: ");
                 var password = getInput("Password: ");
+                //for every account
                 for (var account : accountList){
+                    //login authentication
                     if (account.username().equalsIgnoreCase(username) & account.password().equalsIgnoreCase(password)){
-                        System.out.println("successful login");
-                        accountCode(account);
-        }
-                }}}
+                        System.out.println("Successful login !");
+                        System.out.println();
+                        accountCode(account);}
+                    //Wrong answer
+                    else {
+                        System.err.println("Wrong username or password!");
+                        System.out.println();
+                    }
+                }}
+
     }
 
     private static void accountCode(Account account) {
@@ -93,13 +114,18 @@ public class Main  {
 
     private static void creditCardOptionMenu(CreditCard creditCard) {
         String option = getInput("Withdraw, Deposit, View_balance, Exit: ");
+        while (!option.equalsIgnoreCase("Withdraw") & !option.equalsIgnoreCase("Deposit") & !option.equalsIgnoreCase("View_balance") & !option.equalsIgnoreCase("Exit")){
+            System.err.println("Your answer is not accurate!");
+            System.out.println();
+            option = getInput("Withdraw, Deposit, View_balance, Exit: ");
+        }
         while (!option.equalsIgnoreCase("exit")) {
             switch (option.toLowerCase()) {
                 case "withdraw" -> {
-                    creditCardRepository.withdraw(creditCard);
+                    creditCard = creditCardRepository.withdraw(creditCard);
                 }
                 case "deposit" -> {
-                    creditCardRepository.deposit(creditCard);
+                    creditCard = creditCardRepository.deposit(creditCard);
                 }
                 case "view_balance" -> {
                     creditCardRepository.viewBalance(creditCard);
@@ -107,6 +133,7 @@ public class Main  {
                 default -> {
                 }
             }
+            option = getInput("Withdraw, Deposit, View_balance, Exit: ");
         }
     }
 
