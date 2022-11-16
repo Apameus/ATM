@@ -89,6 +89,11 @@ public class Main  {
 
     private static void accountOptionMenu(Account account) {
         String option = getInput("View_info, View_balance, Change_info, Exit: ");
+        while (!option.equalsIgnoreCase("View_info") & !option.equalsIgnoreCase("View_balance") & !option.equalsIgnoreCase("Change_info") & !option.equalsIgnoreCase("Exit")){
+            System.err.println("Your answer is not accurate!");
+            System.out.println();
+            option = getInput("View_info, View_balance, Change_info, Exit: ");
+        }
         while (!option.equalsIgnoreCase("exit")) {
             switch (option.toLowerCase()) {
                 case "view_info" -> {
@@ -114,11 +119,13 @@ public class Main  {
 
     private static void creditCardOptionMenu(CreditCard creditCard) {
         String option = getInput("Withdraw, Deposit, View_balance, Exit: ");
+        //check the answer
         while (!option.equalsIgnoreCase("Withdraw") & !option.equalsIgnoreCase("Deposit") & !option.equalsIgnoreCase("View_balance") & !option.equalsIgnoreCase("Exit")){
             System.err.println("Your answer is not accurate!");
             System.out.println();
             option = getInput("Withdraw, Deposit, View_balance, Exit: ");
         }
+        //while answer != exit..
         while (!option.equalsIgnoreCase("exit")) {
             switch (option.toLowerCase()) {
                 case "withdraw" -> {
