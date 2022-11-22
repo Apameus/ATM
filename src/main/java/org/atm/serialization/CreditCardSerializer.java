@@ -1,6 +1,5 @@
 package org.atm.serialization;
 
-import com.sun.source.tree.CaseTree;
 import org.atm.module.CreditCard;
 
 import java.io.IOException;

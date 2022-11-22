@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 
-
-
 public class Main  {
 
     //Repositories
@@ -70,7 +68,7 @@ public class Main  {
                 //for every account
                 for (var account : accountList){
                     //login authentication
-                    if (account.username().equalsIgnoreCase(username) & account.password().equalsIgnoreCase(password)){
+                    if (account.username().equals(username) & account.password().equals(password)){
                         System.out.println("Successful login !");
                         System.out.println();
                         accountCode(account);}
@@ -96,19 +94,35 @@ public class Main  {
         }
         while (!option.equalsIgnoreCase("exit")) {
             switch (option.toLowerCase()) {
-                case "view_info" -> {
-                    accountRepository.viewInfo(account);
-                }
-                case "view_balance" -> {
-                    accountRepository.viewBalance(account);
-                }
+
+                case "view_info" -> accountRepository.viewInfo(account);
+
+                case "view_balance" -> accountRepository.viewBalance(account);
+
                 case "change_info" -> {
-                    account = accountRepository.changeUsername(account);
-                    account = accountRepository.changePassword(account);
+                    Account updatedAccount = accountRepository.changeUsername(account);
+                    updatedAccount = accountRepository.changePassword(updatedAccount);
+                    account = updatedAccount;
+
+
+                    for (var e : accountList){
+                        if (e.owner().equals(account.owner())){
+                            e = updatedAccount;
+                        }
+                    }
+
+                    //accountList.remove(account);
+                   //accountList.add(updatedAccount);
+
+                    accountSerializer.saveAccounts(accountList);
+
+//                    account = accountRepository.changeUsername(account);
+//                    account = accountRepository.changePassword(account);
                 }
-                default -> {
-                }
+
+                default -> {}
             }
+
             option = getInput("View_info, View_balance, Change_info, Exit: ");
         }
     }
@@ -128,18 +142,17 @@ public class Main  {
         //while answer != exit..
         while (!option.equalsIgnoreCase("exit")) {
             switch (option.toLowerCase()) {
-                case "withdraw" -> {
-                    creditCard = creditCardRepository.withdraw(creditCard);
-                }
-                case "deposit" -> {
+
+                case "withdraw" -> creditCard = creditCardRepository.withdraw(creditCard);
+
+                case "deposit" ->
                     creditCard = creditCardRepository.deposit(creditCard);
-                }
-                case "view_balance" -> {
-                    creditCardRepository.viewBalance(creditCard);
-                }
-                default -> {
-                }
+
+                case "view_balance" -> creditCardRepository.viewBalance(creditCard);
+
+                default -> {}
             }
+
             option = getInput("Withdraw, Deposit, View_balance, Exit: ");
         }
     }
