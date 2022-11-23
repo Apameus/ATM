@@ -13,12 +13,12 @@ import java.util.Scanner;
 public class Main  {
 
     //Repositories
-    static AccountRepository accountRepository = new AccountRepository();
     static CreditCardRepository creditCardRepository = new CreditCardRepository();
+    static AccountRepository accountRepository = new AccountRepository();
 
     //Serializers
-    static AccountSerializer accountSerializer = new AccountSerializer();
     static CreditCardSerializer creditCardSerializer = new CreditCardSerializer();
+    static AccountSerializer accountSerializer = new AccountSerializer();
 
     //List CreditCard's
     static List<CreditCard> creditCardList = creditCardSerializer.parseCreditCards();
@@ -100,20 +100,24 @@ public class Main  {
                 case "view_balance" -> accountRepository.viewBalance(account);
 
                 case "change_info" -> {
+                    //New acc with the changed info
                     Account updatedAccount = accountRepository.changeUsername(account);
                     updatedAccount = accountRepository.changePassword(updatedAccount);
+                    //update the old one
                     account = updatedAccount;
 
-
+                    //find the position of the current acc in the list
+                    var x = 0;
                     for (var e : accountList){
                         if (e.owner().equals(account.owner())){
-                            e = updatedAccount;
-                        }
+                            break;}
+                        x++;
                     }
-
-                    //accountList.remove(account);
-                   //accountList.add(updatedAccount);
-
+                    //remove the previous acc from the list
+                    accountList.remove(x);
+                    //add the new one
+                    accountList.add(x, updatedAccount);
+                    //serialize the hole list
                     accountSerializer.saveAccounts(accountList);
 
 //                    account = accountRepository.changeUsername(account);
@@ -141,19 +145,42 @@ public class Main  {
         }
         //while answer != exit..
         while (!option.equalsIgnoreCase("exit")) {
+            Boolean activated = false;
             switch (option.toLowerCase()) {
 
-                case "withdraw" -> creditCard = creditCardRepository.withdraw(creditCard);
+                case "withdraw" -> {
+                        creditCard = creditCardRepository.withdraw(creditCard);
+                        activated = true;}
 
-                case "deposit" ->
-                    creditCard = creditCardRepository.deposit(creditCard);
-
+                case "deposit" -> {
+                        creditCard = creditCardRepository.deposit(creditCard);
+                        activated = true;}
                 case "view_balance" -> creditCardRepository.viewBalance(creditCard);
 
-                default -> {}
+                case "exit" -> {continue;}
+
+                default -> System.err.println("Wrong answer!");
             }
 
             option = getInput("Withdraw, Deposit, View_balance, Exit: ");
+
+            //if user changed something in CC, we save it to the file.
+            if (option.equalsIgnoreCase("exit") & activated.equals(true)){
+                //find the creditCard position in creditCardList
+                var x = 0;
+                for (var e : creditCardList){
+                    if (e.number().equals(creditCard.number())){
+                        break;
+                    }
+                    x++;
+                }
+                //remove the previous creditCard
+                creditCardList.remove(x);
+                //add the new one
+                creditCardList.add(x, creditCard);
+                //serialize it
+                creditCardSerializer.saveCreditCards(creditCardList);
+            }
         }
     }
 

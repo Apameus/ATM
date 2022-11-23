@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 //Map with creditCardNumber (key) & creditCard (value)
+import static org.atm.serialization.CreditCardSerializer.creditCardList;
 import static org.atm.serialization.CreditCardSerializer.mapNumberToCreditCard;
 
 public class AccountSerializer {
@@ -32,7 +33,7 @@ public class AccountSerializer {
 //        }
 //        saveToFile(lines);
 //    }
-
+            //Serializer with StrBuilder
     public void saveAccounts(List<Account> accountList){
         //final ArrayList with String's
         List<String> lines = new ArrayList<>();
@@ -70,7 +71,14 @@ public class AccountSerializer {
         for (int linesPassed = 0; lines.size() > linesPassed; linesPassed += 5){
             var owner = getOwner(lines.get(linesPassed));
             var creditCards = getCreditCardNumbers(lines.get(linesPassed + 1));
-            var balance =  getBalance(lines.get(linesPassed + 2));
+
+            //accBalance = balance of creditCard's owner has
+            var balance = 0.0;
+            for (var number : creditCards){
+                for (var creditCard : creditCardList ) {
+                    if (number.equals(creditCard.number())){
+                        balance += creditCard.balance();}}}
+
             var username = getUsername(lines.get(linesPassed + 3));
             var password = getPassword(lines.get(linesPassed + 4));
             Account account = new Account(owner, creditCards, balance, username, password);

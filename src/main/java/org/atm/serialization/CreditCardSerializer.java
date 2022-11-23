@@ -14,8 +14,11 @@ public class CreditCardSerializer {
     //Map with creditCardNumber (key) & creditCard (value)
     public static Map<String, CreditCard> mapNumberToCreditCard = new HashMap<>();
 
+    //List with creditCards
+    public static List<CreditCard> creditCardList = new ArrayList<>();
 
-    public List<String> saveCreditCards(List<CreditCard> creditCardList){
+
+    public void saveCreditCards(List<CreditCard> creditCardList){
         List<String> lines = new ArrayList<>();
         for (var creditCard : creditCardList){
             String line =  "CreditCard_Number: " + creditCard.number() + "\n" +
@@ -26,14 +29,14 @@ public class CreditCardSerializer {
             lines.add(line);
 
         }
-        return lines;
+        saveToFile(lines);
     }
 
 
     public List<CreditCard> parseCreditCards(){
         List<String> lines = getAllLines();
         lines.removeAll(Collections.singleton(""));
-        List<CreditCard> creditCardList = new ArrayList<>();
+//        List<CreditCard> creditCardList = new ArrayList<>();
         for (int linesPassed = 0; lines.size() > linesPassed; linesPassed += 5){
             var number = getNumber(lines.get(linesPassed));
             var pin = getPin(lines.get(linesPassed + 1));
