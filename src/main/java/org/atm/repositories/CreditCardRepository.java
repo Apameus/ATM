@@ -60,7 +60,7 @@ public class CreditCardRepository {
     }
 
     private Double getInput(String msg) {
-        System.out.println(msg);
+        System.out.print(msg);
         return new Scanner(System.in).nextDouble();
 
     }

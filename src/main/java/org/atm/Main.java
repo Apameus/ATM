@@ -54,30 +54,31 @@ public class Main  {
                 if (creditCard.number().equals(number) & creditCard.pin().equals(pin)){
                     System.out.println("Successful login!");
                     System.out.println();
-                    creditCardCode(creditCard);}
-                //Wrong answer
-                else {
-                    System.err.println("Wrong number or pin!");
-                    System.out.println();
-                }
+                    creditCardCode(creditCard);
+                    return;}
             }
+            //Wrong answer
+            System.err.println("Wrong username or password!");
+            System.out.println();
         }
         else if (option.equalsIgnoreCase("account")){
-                var username = getInput("Username: ");
-                var password = getInput("Password: ");
-                //for every account
-                for (var account : accountList){
-                    //login authentication
-                    if (account.username().equals(username) & account.password().equals(password)){
-                        System.out.println("Successful login !");
-                        System.out.println();
-                        accountCode(account);}
-                    //Wrong answer
-                    else {
-                        System.err.println("Wrong username or password!");
-                        System.out.println();
-                    }
-                }}
+            var username = getInput("Username: ");
+            var password = getInput("Password: ");
+            var correct = false;
+            //for every account
+            for (var account : accountList){
+                //login authentication
+                if (account.username().equals(username) & account.password().equals(password)){
+                    System.out.println("Successful login !");
+                    System.out.println();
+                    accountCode(account);
+                    correct = true;}
+                }
+            //Wrong answer
+            if (correct == false) {
+                System.err.println("Wrong username or password!");
+                System.out.println();
+            }}
 
     }
 

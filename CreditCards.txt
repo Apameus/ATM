@@ -1,6 +1,12 @@
 CreditCard_Number: 1234_5678_9012_3456
 Pin: 2020
-Balance: 5000.0
+Balance: 1000.0
+Active: false
+Owner: Ioannis Tzortzinis
+
+CreditCard_Number: 3333_4444_5555_6666
+Pin: 0000
+Balance: 700.0
 Active: false
 Owner: Ioannis Tzortzinis
 
