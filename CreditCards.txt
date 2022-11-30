@@ -6,13 +6,13 @@ Owner: Ioannis Tzortzinis
 
 CreditCard_Number: 3333_4444_5555_6666
 Pin: 0000
-Balance: 700.0
+Balance: 200.0
 Active: false
 Owner: Ioannis Tzortzinis
 
 CreditCard_Number: 9027_4201_3654_1871
 Pin: 1423
-Balance: 30000.0
+Balance: 8889.0
 Active: true
 Owner: Ilias Tzortzinis
 

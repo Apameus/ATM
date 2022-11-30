@@ -64,7 +64,6 @@ public class Main  {
         else if (option.equalsIgnoreCase("account")){
             var username = getInput("Username: ");
             var password = getInput("Password: ");
-            var correct = false;
             //for every account
             for (var account : accountList){
                 //login authentication
@@ -72,13 +71,12 @@ public class Main  {
                     System.out.println("Successful login !");
                     System.out.println();
                     accountCode(account);
-                    correct = true;}
+                    return;}
                 }
             //Wrong answer
-            if (correct == false) {
                 System.err.println("Wrong username or password!");
                 System.out.println();
-            }}
+            }
 
     }
 
@@ -87,6 +85,8 @@ public class Main  {
     }
 
     private static void accountOptionMenu(Account account) {
+        //ToDo if creditCard balance changed we need to automatically save it to the Account.txt
+
         String option = getInput("View_info, View_balance, Change_info, Exit: ");
         while (!option.equalsIgnoreCase("View_info") & !option.equalsIgnoreCase("View_balance") & !option.equalsIgnoreCase("Change_info") & !option.equalsIgnoreCase("Exit")){
             System.err.println("Your answer is not accurate!");
