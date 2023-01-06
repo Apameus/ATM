@@ -44,7 +44,7 @@ public class CreditCardRepository {
             System.out.println();
             return creditCard;
         }
-        //check withdraw > 0
+        //check withdraw <= 0
         while (withdrawAmount <= 0){
             System.err.println("The amount must be greater than 0");
             System.out.println();

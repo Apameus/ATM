@@ -1,12 +1,12 @@
 Owner: Ioannis Tzortzinis
 CC: 1234_5678_9012_3456, 3333_4444_5555_6666 
-Balance: 1200.0
-Username: Apameus
-Password: Apameus123
+Balance: 1610.0
+Username: Ioannis
+Password: Ioannis123
 
 
 Owner: Ilias Tzortzinis
 CC: 9027_4201_3654_1871 
-Balance: 8889.0
+Balance: 9000.0
 Username: Slayer
 Password: Slayer1234
